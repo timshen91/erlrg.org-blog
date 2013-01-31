@@ -1,15 +1,13 @@
 ---
 layout: page
 title: About
-date: 2013-01-23 01:25
 comments: true
 sharing: true
 footer: true
 ---
 
-<p><strong>ERL Research Group</strong> focuses on efficiently solving NP-Complete problems.</p>
+<p><strong>ERL Research Group</strong> focuses on computation problems and computer programming</p>
 <p>ERL is a deliberately ambiguous acronym: Expression Rewriting Language, Extreme Requirements Library, etc.</p>
-<p><strong>Address</strong>: Nanjing University of Posts and Telecommunications, 66 New Mofan Road, Nanjing 210003, P.R.China</p>
 <p><strong>Group memeber</strong>:</p>
 <ul>
 	<li><a href="/doug">Douglas Mark Van Wieren</a></li>
