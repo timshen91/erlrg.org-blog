@@ -16,26 +16,26 @@ Now let's talk about Math. There's an interesting "root of computer"(forget Turi
 - *A function takes exact one function as argument, and return one function as return value.*  
 - *We can define a function, or apply one function on another.*
 
-To define a function, use `λx.{return value}`. The return value is either an application or another definition, or the argument itself. Someone may say, what if I want to define a function that receives multiple arguments? The answer is obvious: if we want a function eating the argument `a` and `b`, we define a function eating `a`, returning a function that eating `b`, returning the body we want. This is called *currying*. So this must be a valid function: `λf.λx.f(x)`
+To define a function, use `λx.{return value}`. The return value is either an application or another definition, or the argument itself. Someone may say, what if I want to define a function that receives multiple arguments? The answer is obvious: if we want a function eating the argument `a` and `b`, we define a function eating `a`, returning a function that eating `b`, returning the body we want. This is called *currying*. So this must be a valid function: `λf.λx.f x`. Notice that `f x` means applying `f` on `x`. It's left-associative, so `f a b` means `(f a) b`, not `f (a b)`.
 
 The question is, where're numbers? But what is numbers, say natural number? You might say "Obviously, [0, 1, 2, 3, 4 ...]", but that's wired ------ that the definition of the decimal representation of numbers, isn't elegant: why we need ten kinds of characters? OK, using binary representation, so need two characters? But why it's exponential, since `(1001)_2 = 1 * 2 ^ 0 + 0 * 2 ^ 1 + 0 * 2 ^ 2 + 1 * 2 ^ 3`? How many rules there are!
 
 We just need two rules for defining natural numbers:  
-- *0 is a natural number*.  
-- *Every natural number has exact one successor, say `succ(n)` is the successor of number n*.
+- *`0` is a natural number.*  
+- *Every natural number has exact one successor, say `succ(n)` is the successor of number n, that is also a natural number.*
 
 Be careful, *every object is a function*, and numbers are also functions. So the definition will be:  
-- *0 is an alias of some function.*  
+- *`0` is an alias of some function.*  
 - *The next number of n is `succ(n)`, or the result of applying `succ` on `n`.*
 
-The thing is, how to choose the function 0 and `succ`. [Some one](http://en.wikipedia.org/wiki/Alonzo\_Church) says:  
-- *Let `λf.λx.x` be 0*  
-- *Let `λf.λx.f(x)` be succ*  
+The thing is, how to choose the function `0` and `succ`. [Some one](http://en.wikipedia.org/wiki/Alonzo\_Church) says:  
+- *Let `λf.λx.x` be `0`*  
+- *Let `λf.λx.f x` be `succ`*  
 Looks good, because it seems that every number is different. The explanation of this *encoding* is that, "`n` is a function that takes `f` and `x`, then return the result of applying `f` on `x` `n` times".
 
-Now...Where's `+` operator? So `+` is a function that takes two numbers `a` and `b`, returning sum of them. The sum must be a number, so what we return actually is "a function that takes `f` and `x` and apply `f` on `x` `a + b` times". How to do that? Aha, we can first apply `f` on `x` `b` times, then treat the result as a new `x` ------ `x'`, then give it to `a`: `λa.λb.λf.λx.a(f, b(f, x))`
+Now...Where's `+` operator? So `+` is a function that takes two numbers `a` and `b`, returning sum of them. The sum must be a number, so what we return actually is "a function that takes `f` and `x` and apply `f` on `x` `a + b` times". How to do that? Aha, we can first apply `f` on `x` `b` times, then treat the result as a new `x` ------ `x'`, then give it to `a`: `λa.λb.λf.λx.a f (b f x)`. You might expect it to be `λa.λb.λf.λx.a(f, b(f, x))`, but finally you will find the former way cleaner.
 
-Now, multiplication? Stop Reading! Take 10 minutes and think about it.
+Now, multiplication? Stop Reading! Take 2 minutes and think about it.
 <br/>
 <br/>
 <br/>
@@ -61,10 +61,10 @@ Now, multiplication? Stop Reading! Take 10 minutes and think about it.
 <br/>
 <br/>
 <br/>
-Got it? It's easy : "It's a function that takes `a` and `b`, returning a function that takes `f` and `x`. Apply `b` on `f` first, so we get a function that 'apply `f` on something `b` times', then ... what? Yes, apply `a` on it. Now we get a function apply 'apply `f` on something `b` times' a times. That's exact `a * b` times": `λa.λb.λf.λx.a(b(f))(x)`
+Got it? It's easy : "It's a function that takes `a` and `b`, returning a function that takes `f` and `x`. Apply `b` on `f` first, so we get a function that 'apply `f` on something `b` times', then ... what? Yes, apply `a` on it. Now we get a function apply 'apply `f` on something `b` times' a times. That's exact `a * b` times": `λa.λb.λf.λx.a (b f) x`
 
 Notice that, we can construct a number using `* 2` now. The time complexity is O(lgn), which is equivalent to the exponential way.
 
-OK, Think about the operator `^`, as is in `2 ^ 3 = 8`.
+OK, think about the operator `^`, as in `2 ^ 3 = 8`.
 
 Good night.
